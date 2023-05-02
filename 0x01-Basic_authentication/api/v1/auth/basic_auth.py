@@ -3,6 +3,8 @@
 """
 from typing import List, TypeVar
 from .auth import Auth
+import base64
+import binascii
 
 
 class BasicAuth(Auth):
@@ -24,10 +26,10 @@ class BasicAuth(Auth):
         """ Decode base64 authorization header method
         """
         if base64_authorization_header is None or \
-           type(base64_authorization_header) is not str:
-            return None
+              type(base64_authorization_header) is not str:
+                return None
         try:
-            return base64_authorization_header.encode('utf-8').decode(
-                'base64')
-        except Exception:
+            return base64.b64decode(
+                base64_authorization_header).decode('utf-8')
+        except binascii.Error:
             return None

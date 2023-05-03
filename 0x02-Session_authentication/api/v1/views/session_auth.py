@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Module for Session authentication view
 """
-from .auth import Auth
 from uuid import uuid4
 from models.user import User
 from flask import request, jsonify, abort

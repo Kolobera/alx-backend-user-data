@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module of Session Exp Auth 
+""" Module of Session Exp Auth
 """
 from api.v1.auth.session_auth import SessionAuth
 from os import getenv

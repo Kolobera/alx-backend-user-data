@@ -2,7 +2,6 @@
 """ Module for Session authentication
 """
 from .auth import Auth
-from models.user_session import UserSession
 from uuid import uuid4
 
 

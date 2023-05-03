@@ -24,8 +24,9 @@ class SessionAuth(Auth):
             return None
         return self.user_id_by_session_id.get(session_id)
 
-    def session_cookie(self, request=None):
-        """Returns a cookie value from a request"""
-        if request is None:
-            return None
-        return request.cookies.get(os.getenv('SESSION_NAME'))
+    def current_user(self, request=None):
+        """Returns a User instance based on a cookie value"""
+        session_cookie = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(session_cookie)
+        from models import User
+        return User.get(user_id)

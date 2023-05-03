@@ -43,8 +43,3 @@ class Auth:
         if request is None:
             return None
         return request.cookies.get(os.getenv('SESSION_NAME'))
-
-    def current_user(self, request=None):
-        """Returns a user instance based on a cookie value"""
-        user_id = self.user_id_for_session_cookie(self.session_cookie(request))
-        return User.get(user_id)

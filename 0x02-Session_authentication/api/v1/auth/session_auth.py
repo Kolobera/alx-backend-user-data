@@ -3,7 +3,7 @@
 """
 from .auth import Auth
 from uuid import uuid4
-import os
+from models import User
 
 
 class SessionAuth(Auth):
@@ -28,5 +28,4 @@ class SessionAuth(Auth):
         """Returns a User instance based on a cookie value"""
         session_cookie = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_cookie)
-        from models import User
         return User.get(user_id)

@@ -31,14 +31,27 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-        """Returns a database connection"""
-        return mysql.connector.connect(
-            host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
-            database=os.getenv('PERSONAL_DATA_DB_NAME', ''),
-            user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
-            password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
-            port=3306,
-        )
+    """Returns a database connection"""
+    return mysql.connector.connect(
+        host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=os.getenv('PERSONAL_DATA_DB_NAME', ''),
+        user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        port=3306,
+    )
+
+
+def main():
+    """Obtains a database connection using get_db and retrieves all rows
+    in the users table and display each row under a filtered format"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM users;')
+    for row in cursor:
+        message = f'name={row[0]}; email={row[1]}; phone={row[2]}; ' \
+                  f'ssn={row[3]}; password={row[4]}; ip={row[5]}; ' \
+                  f'last_login={row[6]}; user_agent={row[7]};'
+        print(filter_datum(PII_FIELDS, '***', message, '; '))
 
 
 class RedactingFormatter(logging.Formatter):

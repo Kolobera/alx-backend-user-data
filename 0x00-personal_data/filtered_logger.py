@@ -70,3 +70,7 @@ class RedactingFormatter(logging.Formatter):
         """Filters values in incoming log records using filter_datum"""
         return filter_datum(self.fields, self.REDACTION,
                             super().format(record), self.SEPARATOR)
+
+
+if __name__ == '__main__':
+    main()

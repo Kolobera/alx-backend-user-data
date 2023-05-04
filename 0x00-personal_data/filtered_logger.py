@@ -16,7 +16,7 @@ def filter_datum(fields: List[str], redaction: str,
     return message
 
 
-def get_db(self):
+def get_db() -> mysql.connector.connection.MySQLConnection:
         """Returns a database connection"""
         return mysql.connector.connect(
             host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),

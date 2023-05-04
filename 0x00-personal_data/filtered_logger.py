@@ -54,8 +54,10 @@ def main():
                   f'ssn={row[3]}; password={row[4]}; ip={row[5]}; ' \
                   f'last_login={row[6]}; user_agent={row[7]};'
         retrieved_data.append(filter_datum(PII_FIELDS, '***', message, '; '))
-    sql_logger.info(retrieved_data)
+    for datum in retrieved_data:
+        sql_logger.info(datum)
     cursor.close()
+
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class

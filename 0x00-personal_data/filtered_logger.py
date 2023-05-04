@@ -47,12 +47,15 @@ def main():
     db = get_db()
     cursor = db.cursor()
     cursor.execute('SELECT * FROM users;')
+    sql_logger = get_logger()
+    retrieved_data = []
     for row in cursor:
         message = f'name={row[0]}; email={row[1]}; phone={row[2]}; ' \
                   f'ssn={row[3]}; password={row[4]}; ip={row[5]}; ' \
                   f'last_login={row[6]}; user_agent={row[7]};'
-        print(filter_datum(PII_FIELDS, '***', message, '; '))
-
+        retrieved_data.append(filter_datum(PII_FIELDS, '***', message, '; '))
+    sql_logger.info(retrieved_data)
+    cursor.close()
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class

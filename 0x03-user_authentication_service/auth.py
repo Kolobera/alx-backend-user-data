@@ -30,7 +30,7 @@ class Auth:
                                      hashed_password=hashed_password)
         if user is not None:
             raise ValueError(f"User {email} already exists")
-    
+
     def valid_login(self, email: str, password: str) -> bool:
         """ry locating the user by email.
         If it exists, check the password with bcrypt.checkpw.
@@ -48,6 +48,3 @@ class Auth:
             return False
         except NoResultFound:
             return False
-        
-
-

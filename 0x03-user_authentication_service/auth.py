@@ -18,14 +18,15 @@ class Auth:
     def __init__(self):
         """Initialization"""
         self._db = DB()
-    
+
     def register_user(self, email: str, password: str) -> User:
-        """hash the password with _hash_password, save the user 
+        """hash the password with _hash_password, save the user
         to the database using self._db and return the User object."""
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             hashed_password = _hash_password(password)
-            return self._db.add_user(email=email, hashed_password=hashed_password)
+            return self._db.add_user(email=email,
+                                     hashed_password=hashed_password)
         if user is not None:
             raise ValueError(f"User {email} already exists")

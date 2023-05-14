@@ -63,6 +63,7 @@ class DB:
         user = self.find_user_by(id=user_id)
         keyword = list(kwargs.items())[0][0]
         try:
+            user.__getattribute__(keyword)
             user.__setattr__(keyword, kwargs[keyword])
             self._session.commit()
             self._session.close()

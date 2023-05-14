@@ -67,4 +67,3 @@ class DB:
         else:
             user.__setattr__(keyword, kwargs[keyword])
         self._session.commit()
-        self._session.close()

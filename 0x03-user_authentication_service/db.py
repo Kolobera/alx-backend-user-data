@@ -69,3 +69,5 @@ class DB:
             self._session.close()
         except ValueError:
             raise ValueError
+        except AttributeError:
+            raise AttributeError

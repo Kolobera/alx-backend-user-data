@@ -28,5 +28,27 @@ def users():
         return jsonify({"message": "email already registered"}), 400
 
 
+@app.route('/sessions', methods=['POST'])
+def login():
+    """log the user in by:
+        - creating a new session
+        - send the session Id on the response as an HTTP header
+    """
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if email is None or password is None:
+        return None
+    if AUTH.valid_login(email, password):
+        SID = AUTH.create_session(email)
+        if not SID:
+            abort(401)
+        res = make_response(
+            jsonify({"email": email, "message": "logged in"}), 200)
+        res.set_cookie("session_id", SID)
+        return res
+    else:
+        abort(401)
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

@@ -22,3 +22,7 @@ try:
     print("Password updated")
 except ValueError:
     print("Error")
+try:
+    my_db.update_user(user.id, egg='a_trying_time')
+except AttributeError:
+    print("cds")

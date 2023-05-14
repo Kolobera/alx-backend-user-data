@@ -62,12 +62,9 @@ class DB:
         then commit changes to the database"""
         user = self.find_user_by(id=user_id)
         keyword = list(kwargs.items())[0][0]
-        try:
-            user.__getattribute__(keyword)
-            user.__setattr__(keyword, kwargs[keyword])
-            self._session.commit()
-            self._session.close()
-        except ValueError:
+        if not hasattr(user, keyword):
             raise ValueError
-        except AttributeError:
-            raise AttributeError
+        else:
+            user.__setattr__(keyword, kwargs[keyword])
+        self._session.commit()
+        self._session.close()

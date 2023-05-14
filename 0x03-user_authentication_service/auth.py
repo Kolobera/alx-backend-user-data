@@ -56,6 +56,7 @@ class Auth:
             return False
 
     def create_session(self, email: str) -> str:
+        """creates session"""
         if email is None:
             return None
         try:
